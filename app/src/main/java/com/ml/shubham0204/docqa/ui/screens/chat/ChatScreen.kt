@@ -2,6 +2,7 @@ package com.ml.shubham0204.docqa.ui.screens.chat
 
 import android.content.Intent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -50,6 +51,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ml.shubham0204.docqa.R
 import com.ml.shubham0204.docqa.ui.components.AppAlertDialog
+import com.ml.shubham0204.docqa.ui.components.AppDocDetailDialog
+import com.ml.shubham0204.docqa.ui.components.showDocDetailDialog
 import com.ml.shubham0204.docqa.ui.components.createAlertDialog
 import com.ml.shubham0204.docqa.ui.theme.DocQATheme
 import com.ml.shubham0204.docqa.ui.theme.GloriaBlue
@@ -107,6 +110,7 @@ fun ChatScreen(
                 }
             }
             AppAlertDialog()
+            AppDocDetailDialog()
         }
     }
 }
@@ -156,10 +160,16 @@ private fun ColumnScope.QALayout(screenUiState: ChatScreenUIState) {
                 item {
                     if (!screenUiState.isGeneratingResponse) {
                         Spacer(modifier = Modifier.height(16.dp))
+                        val fileName = screenUiState.retrievedContextList.firstOrNull()?.fileName
                         Column(
                             modifier =
                                 Modifier
                                     .background(Color.White, RoundedCornerShape(16.dp))
+                                    .clickable {
+                                        fileName?.let {
+                                            onScreenEvent(ChatScreenUIEvent.OnResponseClick(it))
+                                        }
+                                    }
                                     .padding(24.dp)
                                     .fillMaxWidth(),
                         ) {
@@ -194,6 +204,17 @@ private fun ColumnScope.QALayout(screenUiState: ChatScreenUIState) {
                                         tint = Color.Black,
                                     )
                                 }
+                            }
+                            fileName?.let {
+                                Spacer(modifier = Modifier.height(4.dp))
+                                Text(
+                                    text = "Source: $it",
+                                    color = Color.Blue,
+                                    fontSize = 12.sp,
+                                    modifier = Modifier.clickable {
+                                        onScreenEvent(ChatScreenUIEvent.OnResponseClick(it))
+                                    },
+                                )
                             }
                         }
                         Spacer(modifier = Modifier.height(8.dp))

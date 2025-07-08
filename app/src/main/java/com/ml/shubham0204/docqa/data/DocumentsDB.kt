@@ -26,4 +26,10 @@ class DocumentsDB {
             .flowOn(Dispatchers.IO)
 
     fun getDocsCount(): Long = docsBox.count()
+
+    fun getDocumentByFileName(fileName: String): Document? =
+        docsBox
+            .query(Document_.docFileName.equal(fileName))
+            .build()
+            .findFirst()
 }
