@@ -32,7 +32,7 @@ $> git clone --depth=1 https://github.com/shubham0204/Android-Document-QA
 
 2. Open the resulting directory in Android Studio. A project build is initiated automatically, if not, run `./gradlew :app:build` in the terminal.
 
-3. Download the `Gemma3n-e4b-it-int4.task` model from the official Mediapipe release and place it inside `app/src/main/assets/`.
+3. Download the `Gemma3n-e4b-it-int4.task` model from the official Mediapipe release and push it to `/sdcard/DaoGemma/models/` on the device.
 
 4. [Run the app](https://developer.android.com/studio/run) on a physical device or an emulator.
 
