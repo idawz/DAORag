@@ -15,7 +15,7 @@ class GemmaLocalAPI(context: Context) {
             LlmInferenceOptions.builder()
                 .setBaseOptions(
                     BaseOptions.builder()
-                        .setModelAssetPath("Gemma3n-e4b-it-int4.task")
+                        .setModelAssetPath("/sdcard/DaoGemma/models/Gemma3n-e4b-it-int4.task")
                         .build(),
                 )
                 .build()
