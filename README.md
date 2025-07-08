@@ -32,9 +32,9 @@ $> git clone --depth=1 https://github.com/shubham0204/Android-Document-QA
 
 2. Open the resulting directory in Android Studio. A project build is initiated automatically, if not, run `./gradlew :app:build` in the terminal.
 
-3. [Get an API key from Google AI Studio](https://ai.google.dev/gemini-api/docs/api-key) to use the Gemini API.
+3. Download the `Gemma3n-e4b-it-int4.task` model from the official Mediapipe release and place it inside `app/src/main/assets/`.
 
-4. [Run the app](https://developer.android.com/studio/run) on a physical device or a emulator. Tap on the '🔑' icon to add the API key.
+4. [Run the app](https://developer.android.com/studio/run) on a physical device or an emulator.
 
 
 Perform a Gradle sync, and run the application. 
@@ -44,7 +44,7 @@ Perform a Gradle sync, and run the application.
 1. [Apache POI](https://poi.apache.org/) and [iTextPDF](https://github.com/itext/itextpdf) for parsing DOCX and PDF documents
 2. [ObjectBox](https://objectbox.io/) for on-device vector-store and NoSQL database
 3. [Sentence Embeddings (`all-MiniLM-L6-V2`)](https://github.com/shubham0204/Sentence-Embeddings-Android) for generating on-device text/sentence embeddings
-4. [Gemini Android SDK](https://developer.android.com/ai/google-ai-client-sdk) as a hosted large-language model (Uses Gemini-1.5-Flash)
+4. [Mediapipe Tasks - LLM inference](https://ai.google.dev/edge/mediapipe/solutions/genai/llm_inference) using the `Gemma3n-e4b-it-int4` model
 
 ## Working 
 
@@ -56,7 +56,7 @@ the libraries mentioned in (1) of [Tools](#tools). See [PDFReader.kt](https://gi
 the extent of overlap between two sequences (`chunkOverlap`). See [WhiteSpaceSplitter.kt](https://github.com/shubham0204/Android-Document-QA/blob/main/app/src/main/java/com/ml/shubham0204/docqa/domain/splitters/WhiteSpaceSplitter.kt) for reference.
 3. Each chunk is encoded into a fixed-size vector i.e. a text embedding. The embeddings are inserted in the vector database, with each chunk/embedding having a distinct `chunkId`. See [SentenceEmbeddingProvider.kt](https://github.com/shubham0204/Android-Document-QA/blob/main/app/src/main/java/com/ml/shubham0204/docqa/domain/embeddings/SentenceEmbeddingProvider.kt) for reference.
 4. When the user submits a query, we find the top-K most similar chunks from the database by comparing their embeddings.
-5. The chunks corresponding to the nearest embeddings are injected into a pre-built prompt along with the query, which is provided to the LLM. The LLM generates a well-formed natural language answer to the user's query. See [GeminiRemoteAPI.kt](https://github.com/shubham0204/Android-Document-QA/blob/main/app/src/main/java/com/ml/shubham0204/docqa/domain/llm/GeminiRemoteAPI.kt) for reference.
+5. The chunks corresponding to the nearest embeddings are injected into a pre-built prompt along with the query, which is provided to the LLM. The LLM generates a well-formed natural language answer to the user's query. See [`GemmaLocalAPI.kt`](app/src/main/java/com/ml/shubham0204/docqa/domain/GemmaLocalAPI.kt) for reference.
 
 See the [prompt](https://github.com/shubham0204/Android-Document-QA/blob/main/app/src/main/res/values/strings.xml),
 
@@ -83,7 +83,7 @@ Moreover, the same docs [specific for Android](https://ai.google.dev/edge/mediap
 
 > During development, you can use adb to push the model to your test device for a simpler workflow. For deployment, host the model on a server and download it at runtime. The model is too large to be bundled in an APK.
 
-The integration using Mediapipe LLM inference API is easy. Due to the absence of a good Android device, I went ahead with the Cloud API, but it would be great to have an on-device option. [Gemini Nano](https://ai.google.dev/gemini-api/docs/get-started/android_aicore) currently available on limited devices is also an on-device solution.
+The integration using Mediapipe LLM inference API is straightforward. This project now ships with on-device generation using the Gemma model. [Gemini Nano](https://ai.google.dev/gemini-api/docs/get-started/android_aicore) currently available on limited devices is also an on-device solution.
 
 Other tools for using LLMs on Android:
 

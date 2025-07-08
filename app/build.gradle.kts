@@ -96,8 +96,8 @@ dependencies {
     debugImplementation(libs.objectbox.android.objectbrowser)
     releaseImplementation(libs.objectbox.android)
 
-    // Gemini SDK - LLM
-    implementation(libs.generativeai)
+    // Mediapipe Tasks - on-device LLM
+    implementation(libs.mediapipe.tasks.text)
 
     // compose-markdown
     // https://github.com/jeziellago/compose-markdown
@@ -109,8 +109,6 @@ dependencies {
     implementation(libs.koin.androidx.compose)
     ksp(libs.koin.ksp.compiler)
 
-    // For secured/encrypted shared preferences
-    implementation("androidx.security:security-crypto:1.1.0-alpha07")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

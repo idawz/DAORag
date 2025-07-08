@@ -2,7 +2,6 @@ package com.ml.shubham0204.docqa.ui.screens.chat
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FolderOpen
-import androidx.compose.material.icons.filled.Key
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -21,14 +20,6 @@ fun ChatScreenMoreOptionsPopup(
         expanded = expanded,
         onDismissRequest = onDismissRequest,
     ) {
-        OptionsPopupItem(
-            title = "Edit Gemini API Key",
-            icon = Icons.Default.Key,
-            onItemClick = {
-                onItemClick(ChatScreenUIEvent.OnEditAPIKeyClick)
-                onDismissRequest()
-            },
-        )
         OptionsPopupItem(
             title = "Manage Documents",
             icon = Icons.Default.FolderOpen,
