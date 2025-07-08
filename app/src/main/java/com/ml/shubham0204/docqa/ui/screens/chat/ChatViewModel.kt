@@ -9,6 +9,7 @@ import com.ml.shubham0204.docqa.data.DocumentsDB
 import com.ml.shubham0204.docqa.data.RetrievedContext
 import com.ml.shubham0204.docqa.domain.GemmaLocalAPI
 import com.ml.shubham0204.docqa.domain.SentenceEmbeddingProvider
+import com.ml.shubham0204.docqa.ui.components.showDocDetailDialog
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
@@ -20,6 +21,8 @@ import org.koin.android.annotation.KoinViewModel
 
 sealed interface ChatScreenUIEvent {
     data object OnOpenDocsClick : ChatScreenUIEvent
+
+    data class OnResponseClick(val fileName: String) : ChatScreenUIEvent
 
     sealed class ResponseGeneration {
         data class Start(
@@ -106,6 +109,12 @@ class ChatViewModel(
             is ChatScreenUIEvent.OnOpenDocsClick -> {
                 viewModelScope.launch {
                     _navEventChannel.send(ChatNavEvent.ToDocsScreen)
+                }
+            }
+
+            is ChatScreenUIEvent.OnResponseClick -> {
+                documentsDB.getDocumentByFileName(event.fileName)?.let { doc ->
+                    showDocDetailDialog(doc.docFileName, doc.docText)
                 }
             }
 
