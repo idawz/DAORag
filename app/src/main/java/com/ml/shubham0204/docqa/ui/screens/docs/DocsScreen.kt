@@ -60,6 +60,7 @@ import com.ml.shubham0204.docqa.domain.readers.Readers
 import com.ml.shubham0204.docqa.ui.components.AppAlertDialog
 import com.ml.shubham0204.docqa.ui.components.createAlertDialog
 import com.ml.shubham0204.docqa.ui.theme.DocQATheme
+import com.ml.shubham0204.docqa.ui.theme.GloriaBlue
 
 private val showDocDetailDialog = mutableStateOf(false)
 private val dialogDoc = mutableStateOf<Document?>(null)
@@ -357,7 +358,7 @@ private fun DocDetailDialog() {
                         modifier = Modifier.fillMaxWidth(),
                     ) {
                         Button(
-                            colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
+                            colors = ButtonDefaults.buttonColors(containerColor = GloriaBlue),
                             onClick = {
                                 val sendIntent: Intent =
                                     Intent().apply {
@@ -372,7 +373,7 @@ private fun DocDetailDialog() {
                             Text(text = "Share Text")
                         }
                         Button(
-                            colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
+                            colors = ButtonDefaults.buttonColors(containerColor = GloriaBlue),
                             onClick = { isVisible = false },
                         ) {
                             Text(text = "Close")
