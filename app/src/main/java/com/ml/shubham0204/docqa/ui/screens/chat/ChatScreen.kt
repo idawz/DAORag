@@ -52,6 +52,7 @@ import com.ml.shubham0204.docqa.R
 import com.ml.shubham0204.docqa.ui.components.AppAlertDialog
 import com.ml.shubham0204.docqa.ui.components.createAlertDialog
 import com.ml.shubham0204.docqa.ui.theme.DocQATheme
+import com.ml.shubham0204.docqa.ui.theme.GloriaBlue
 import dev.jeziellago.compose.markdowntext.MarkdownText
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -257,7 +258,7 @@ private fun QueryInput(onEvent: (ChatScreenUIEvent) -> Unit) {
         )
         Spacer(modifier = Modifier.width(8.dp))
         IconButton(
-            modifier = Modifier.background(Color.Blue, CircleShape),
+            modifier = Modifier.background(GloriaBlue, CircleShape),
             onClick = {
                 keyboardController?.hide()
 
