@@ -17,15 +17,12 @@ import com.ml.shubham0204.docqa.ui.screens.chat.ChatScreen
 import com.ml.shubham0204.docqa.ui.screens.chat.ChatViewModel
 import com.ml.shubham0204.docqa.ui.screens.docs.DocsScreen
 import com.ml.shubham0204.docqa.ui.screens.docs.DocsViewModel
-import com.ml.shubham0204.docqa.ui.screens.edit_api_key.EditAPIKeyScreen
 import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
 
 @Serializable
 object ChatRoute
 
-@Serializable
-object EditAPIKeyRoute
 
 @Serializable
 object DocsRoute
@@ -52,7 +49,6 @@ class MainActivity : ComponentActivity() {
                         onEvent = viewModel::onEvent,
                     )
                 }
-                composable<EditAPIKeyRoute> { EditAPIKeyScreen(onBackClick = { navHostController.navigateUp() }) }
                 composable<ChatRoute> { backStackEntry ->
                     val viewModel: ChatViewModel =
                         koinViewModel(viewModelStoreOwner = backStackEntry)
@@ -62,10 +58,6 @@ class MainActivity : ComponentActivity() {
                         when (navEvent) {
                             is ChatNavEvent.ToDocsScreen -> {
                                 navHostController.navigate(DocsRoute)
-                            }
-
-                            is ChatNavEvent.ToEditAPIKeyScreen -> {
-                                navHostController.navigate(EditAPIKeyRoute)
                             }
 
                             is ChatNavEvent.None -> {}
