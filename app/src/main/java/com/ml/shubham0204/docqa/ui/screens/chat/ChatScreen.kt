@@ -104,7 +104,7 @@ fun ChatScreen(
                         .fillMaxWidth(),
             ) {
                 Column {
-                    QALayout(screenUiState)
+                    QALayout(screenUiState, onScreenEvent)
                     Spacer(modifier = Modifier.height(8.dp))
                     QueryInput(onScreenEvent)
                 }
@@ -116,7 +116,10 @@ fun ChatScreen(
 }
 
 @Composable
-private fun ColumnScope.QALayout(screenUiState: ChatScreenUIState) {
+private fun ColumnScope.QALayout(
+    screenUiState: ChatScreenUIState,
+    onScreenEvent: (ChatScreenUIEvent) -> Unit,
+) {
     val context = LocalContext.current
     Column(
         modifier =
